@@ -1,0 +1,65 @@
+Base de Datos ->
+
+class Teacher ->
+Long id;
+String name;
+@OneToMany(mappedBy = "teacher")	 
+List<Subject> subjects;
+
+class Student -> 
+Long id;
+String name;
+@ManyToMany(ffetch = LAZY, cascade = ALL)
+@JoinTable({@JoinColumn(name = "student_id")},
+	   {@inverseJoinColumn(name = "course_id")});
+Set <Subject> subjects = new HashSet<>()
+
+
+class Subject->
+Long id;
+String name;
+@ManyToOne(cascade = All)
+@JoinColumn(name="teacher_id", referencedColName = "id")
+Teacher teacher;
+@ManyToMany(fetch = LAZY, cascade = ALL, mappedBy("subjects")
+Set <Student> students;
+--------------------------------------------------------------------------
+
+
+Seguridad ->
+
+Agregar class admin, password, roles
+
+class Admin ->
+Long id;
+String username;
+String password;
+@ManyToOne
+Role role;
+
+class Role ->
+Long id;
+String name;
+List<Permission> permissions;
+
+public Role(Set<Permission> permissions)
+
+enum RoleName ->
+"ROLE_ADMIN"
+"ROLE_PROFESSOR"
+"ROLE_STUDENT"
+
+
+enum Permission ->
+
+"COURSES_READ("read")
+"COURSES_WRITE("write")
+"STUDENT_READ("read")
+"STUDENT_WRITE("write")
+
+
+id;
+public Permission(String name)
+
+
+
