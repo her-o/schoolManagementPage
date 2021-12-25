@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    height: 70px;
+    width: 100%;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.2);
+    background: rgb(210,84,74);
+    background: linear-gradient(45deg, rgba(210, 83, 74, 0.952) 0%, rgb(212, 53, 39) 85%);
+}
+
+
+
+.brand-link {
+    height: 100%;
+    width: 100px;
+}
+
+img {
+    height: 60px;
+    width: 70px;
+    border-right: 1px solid black;
+    padding-right: 10px;
+    transition-property: box-shadow;
+    transition: 0.2s all;
+    opacity: .7;
+}
+
+img:hover {
+    border-right: 0px;
+    box-shadow: 3px 3px 15px 0 rgba(0,0,0,.2);
+    
+}
+
+ul {
+    margin-left: 1.25rem;
+ 
+}
+
+.nav-item {
+    opacity: .8;
+    margin-right: 1.25rem;
+    transition: 0.2s; 
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-item:hover {
+    opacity: 1;
+    border-bottom: 1px solid white;
+    transform: scale(1.1);
+}
+
+.navbar .navbar-nav > li > a {
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-weight: 600;
+    color:white;
+    text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 10px 5px rgba(0,0,0,0.05),
+                 -10px 10px 5px rgba(0,0,0,0.05);
+}
+
+.content-container {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    height: 600px;
+    width: 100%;
+    background: linear-gradient(to left, #6f8197, 90%, #6f8197d2);
+    justify-items: center;
+    align-items: center;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 92%;
+    width: 95%;
+    background-color: rgba(255, 255, 255, 0.849);
+    box-shadow:  5px 5px 15px rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+
+.footer {
+    background-color: 	#1c375b;
+    opacity: .8;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin: 0;
+}
+
+.footer > h4 {
+    font-size: 18px;
+    color: rgb(231, 231, 231);
+    font-family: 'Poppins';
+    text-align: center;
+    padding-left: 10px;
+    opacity: .7;
+    cursor: pointer;
+}
+
+.footer > h4:hover {
+    opacity: 1;
+}
+
+.footer > ul {
+    list-style-type:none;
+}
+
+.social-icon {
+    height: 37px;
+    width: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 25px;
+    margin-right: 10px;
+    cursor: pointer
+}
+
+
+.social-facebook {
+    padding-top: 5px;
+    background-color: #3b5999
+}
+
+
+.social-instagram {
+    background: #f09433; 
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+}
+
+.social-google {
+    color: #f04028;
+    background-color: white;
+        
+}
+
+.social-icon i {
+    transition: 0.4s all
+}
+
+.social-icon:hover i {
+    transform: scale(1.2)
+}
+
