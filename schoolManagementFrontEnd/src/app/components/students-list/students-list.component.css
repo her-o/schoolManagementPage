@@ -1,0 +1,22 @@
+.wrapper {
+    height: 400px;
+    margin: 10px;
+}
+
+table {
+    height: 200px;
+    overflow: auto;
+}
+
+#form-container {
+    opacity: 0;
+}
+
+#form-container.active {
+    opacity: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}

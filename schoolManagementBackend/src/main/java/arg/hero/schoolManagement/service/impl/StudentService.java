@@ -20,8 +20,8 @@ public class StudentService implements IStudentService {
 	private StudentRepository repository;
 
 	@Override
-	public Student addStudent(Student student) {
-		return repository.save(student);
+	public Student addStudent(Student newStudent) {
+		return repository.save(newStudent);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class StudentService implements IStudentService {
 	public Optional<Student> findStudentById(Long id) {
 		return repository.findById(id);
 	}
-
+	
 	@Override
 	public Student updateStudentById(Long id, Student student) {
 		Student updatedStudent = repository.findById(id).get();
@@ -48,5 +48,7 @@ public class StudentService implements IStudentService {
 		repository.deleteById(id);
 		return deletedStudent;
 	}
+
+	
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,9 +21,11 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique=true)
 	private String name;	
 	@ManyToOne
 	private Teacher teacher;
+	private String schedule;
 	
 	@ManyToMany
 	@JoinTable(name = "enrolement", 
@@ -76,6 +79,14 @@ public class Subject {
 	
 	public void removeStudent(Student student) {
 		students.remove(student);
+	}
+	
+	public String getSchedule() {
+		return this.schedule;
+	}
+	
+	public void setSchedule(String schedule) {
+		this.schedule = schedule;
 	}
 	
 }

@@ -48,7 +48,9 @@ public class SubjectService implements ISubjectService {
 	public Subject updateSubjectById(Long id, Subject subject) {
 		Subject updatedSubject = repository.findById(id).get();
 		updatedSubject.setName(subject.getName());
+		updatedSubject.setTeacher(subject.getTeacher());
 		updatedSubject.setStudents(subject.getStudents());
+		updatedSubject.setSchedule(subject.getSchedule());
 		return repository.save(updatedSubject) ;
 	}
 
@@ -59,8 +61,8 @@ public class SubjectService implements ISubjectService {
 		return deletedSubject;
 	}
 	
-	public Student getStudentById(Long id) {
-		return studentRepository.findById(id).get();
+	public Student getStudentByEmail(String email) {
+		return studentRepository.findByEmail(email).get();
 	}
 	
 	public Teacher getTeacherById(Long id) {

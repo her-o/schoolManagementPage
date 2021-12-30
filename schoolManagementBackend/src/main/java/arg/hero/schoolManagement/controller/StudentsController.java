@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import arg.hero.schoolManagement.model.Student;
@@ -38,6 +39,7 @@ public class StudentsController {
 	public Student getStudentById(@PathVariable Long id) {
 		return service.findStudentById(id).get();
 	}
+	
 	
 	@PutMapping("/{id}")
 	public Student updateStudentById(@PathVariable Long id, @RequestBody Student student) {

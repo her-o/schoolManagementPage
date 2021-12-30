@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import arg.hero.schoolManagement.model.Student;
@@ -57,20 +58,11 @@ public class SubjectController {
 		return service.findSubjectById(id).get().getStudents();
 	}
 	
-	@PutMapping("/{id}/students/{studentId}")
-	public Subject enroleStudent(@PathVariable Long id, @PathVariable Long studentId) {
+	@PutMapping("/{id}/students/enrole")
+	public Subject enroleStudent(@PathVariable Long id, @RequestParam String email) {
 		Subject subject = service.findSubjectById(id).get();
-		Student student = service.getStudentById(studentId);
+		Student student = service.getStudentByEmail(email);
 		subject.enroleStudent(student);
-		return service.addSubject(subject);
-		
-	}
-	
-	@PutMapping("/{id}/teacher/{teacherId}")
-	public Subject assignTeacherToSubject(@PathVariable Long id, @PathVariable Long teacherId) {
-		Subject subject = service.findSubjectById(id).get();
-		Teacher teacher = service.getTeacherById(teacherId);
-		subject.setTeacher(teacher);
 		return service.addSubject(subject);
 	}
 	

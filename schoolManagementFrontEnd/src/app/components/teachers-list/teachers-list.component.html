@@ -1,0 +1,39 @@
+<div class="wrapper">
+    <table class="table table-striped table-hover">
+        <thead>
+            <th scope="col">Teachers
+
+                
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let teacher of teachers">
+                <td><h4>{{teacher.name}}</h4></td>
+                <td><button class="btn btn-info" type="button" (click)="navigateToDetails(teacher.id)">Details</button></td>
+            </tr>         
+        </tbody>
+    </table>   
+    <button class="btn btn-success" type="button" (click)="toggleHireNewTeacherForm()">Hire New Teacher</button>
+    <div id="form-container">
+        <form [formGroup]="hireNewTeacherForm">
+            <label for="first_name"> First Name
+                <input class="form-control" [class.invalid]="hireNewTeacherForm.get('first_name')?.invalid && hireNewTeacherForm.get('first_name')?.touched"  
+                type="text" name="first_name" placeholder="Enter teacher's first name"
+                formControlName="first_name">
+            </label>
+            <label for="last_name"> Last Name
+                <input class="form-control" [class.invalid]="hireNewTeacherForm.get('last_name')?.invalid && hireNewTeacherForm.get('last_name')?.touched"  
+                type="text" name="last_name" placeholder="Enter teacher's last name"
+                formControlName="last_name">
+            </label>
+            <label for="email"> Email
+                <input class="form-control" [class.invalid]="hireNewTeacherForm.get('email')?.invalid && hireNewTeacherForm.get('email')?.touched"  
+                type="text" name="email" placeholder="Enter teacher's email"
+                formControlName="email">
+            </label>
+            <button [disabled]="hireNewTeacherForm.invalid" class="btn-info" (click)="onSubmit()">Hire</button>
+            <button class="btn-danger" (click)="toggleHireNewTeacherForm()">X</button>
+        </form>
+    </div>
+</div>
+

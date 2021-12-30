@@ -1,6 +1,27 @@
 .wrapper {
-    width: 800px;
-    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     overflow: auto;
 }
+
+.form-container {
+    opacity: 0;
+}
+
+.form-container.active {
+    opacity: 1;
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: row;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+
 
