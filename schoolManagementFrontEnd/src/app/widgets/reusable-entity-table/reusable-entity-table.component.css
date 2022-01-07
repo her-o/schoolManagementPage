@@ -1,0 +1,29 @@
+.container {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+
+table {
+    width: 50vw;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;  
+}
+
+label > input {
+    display: flex;
+    flex-direction: row;
+  
+}
+
+#updateButtons {
+    align-self: flex-end;
+}
+
+
+

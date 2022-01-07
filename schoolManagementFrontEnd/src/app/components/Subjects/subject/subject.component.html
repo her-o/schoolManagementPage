@@ -26,10 +26,11 @@
                     <th>Contact</th>  
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="subject.students.length > 0">
                 <tr *ngFor="let student of subject.students">
                     <td class="students-td"><h4>{{student.name}}</h4></td>
                     <td class="students-td"><h4>{{student.email}}</h4></td>
+                    <td><button class="btn-danger" (click)="removeStudent(student.email)">Drop</button></td>
                 </tr>         
             </tbody>
         </table>
@@ -40,7 +41,7 @@
             <form class="form" [formGroup]="enroleForm">
                 <label for="student">Student
                     <select name="student" class="custom-select form-control" formControlName="student">
-                        <option *ngFor="let student of studentsToEnrole" [ngValue]="student">{{student.name}}</option>
+                        <option *ngFor="let student of studentsToEnrole" value="{{student.email}}">{{student.name}}</option>
                     </select>
                 </label>
             </form>

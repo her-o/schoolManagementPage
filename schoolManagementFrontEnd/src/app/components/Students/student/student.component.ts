@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'src/app/model/subject';
-import { Teacher } from 'src/app/model/teacher';
+import { Student } from 'src/app/model/student';
+import { StudentService } from 'src/app/services/student.service';
 import { SubjectService } from 'src/app/services/subject.service';
-import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
-  selector: 'app-teacher',
-  templateUrl: './teacher.component.html',
-  styleUrls: ['./teacher.component.css']
+  selector: 'app-student',
+  templateUrl: './student.component.html',
+  styleUrls: ['./student.component.css']
 })
-export class TeacherComponent implements OnInit {
+export class StudentComponent implements OnInit {
+
   id!:string | null;
-  teacher = new Teacher();
+  student = new Student();
   subjects:Subject[] = [];
 
-  constructor(private service:TeacherService,
+  constructor(private service:StudentService,
               private subjectService:SubjectService, 
               private route:ActivatedRoute) { }
 
@@ -25,21 +26,22 @@ export class TeacherComponent implements OnInit {
     if(this.id == null) {
       throw new Error;
     }
-    this.getTeacherById(this.id);
-    this.getTeacherSubjects(this.teacher);
+    this.getStudentById(this.id);
+    this.getStudentSubjects(this.student);
   
   }
 
-  getTeacherById(id: string) {
-    this.service.getTeacherById(id).subscribe({
-      next: (data) => this.teacher = data,
+  getStudentById(id: string) {
+    this.service.getById(id).subscribe({
+      next: (data) => this.student = data,
       error: (error) => console.log(error)
     });
   }
 
-  getTeacherSubjects(teacher:Teacher) {
-    this.subjectService.getAllSubjects().subscribe({
-      next: (data) => this.subjects = data.filter((s:Subject) => s.teacher.id == this.teacher.id),                                
+  getStudentSubjects(student:Student) {
+    this.subjectService.getAll().subscribe({
+      next: (data) => this.subjects = data.filter((s:Subject) => s.students
+                                          .find(student => student.id == this.student.id)),
       error: (error) => console.log(error)
     });
   }

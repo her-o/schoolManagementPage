@@ -1,0 +1,8 @@
+<div class="wrapper">
+    <div class="container">
+        <button class="btn btn-success" type="button" (click)="toggleAddSubjectForm()">Add New Subject</button>
+        <app-reusable-entity-table [GridData]='subjects' [ColData]='subject' [Options]='teachers' [ImportedService]='getService()' [DetailsUrl]="detailsUrl"></app-reusable-entity-table>  
+        <app-reusable-entity-register-form [ColData]='subject' [Options]='teachers' [ImportedService]='getService()'></app-reusable-entity-register-form>
+    </div>  
+</div>
+

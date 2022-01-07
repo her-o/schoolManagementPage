@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StudentComponent } from './components/student/student.component';
-import { StudentsListComponent } from './components/students-list/students-list.component';
-import { SubjectComponent } from './components/subject/subject.component';
-import { SubjectsListComponent } from './components/subjects-list/subjects-list.component';
-import { TeacherComponent } from './components/teacher/teacher.component';
-import { TeachersListComponent } from './components/teachers-list/teachers-list.component';
+import { StudentComponent } from './components/Students/student/student.component';
+import { StudentsListComponent } from './components/Students/students-list/students-list.component';
+import { SubjectComponent } from './components/Subjects/subject/subject.component';
+import { SubjectsListComponent } from './components/Subjects/subjects-list/subjects-list.component';
+import { TeacherComponent } from './components/Teachers/teacher/teacher.component';
+import { TeachersListComponent } from './components/Teachers/teachers-list/teachers-list.component';
 
 
 const routes: Routes = [

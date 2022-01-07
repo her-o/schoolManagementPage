@@ -1,0 +1,41 @@
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th *ngFor="let key of ColData"> {{key.header}} </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of GridData; trackBy: trackByFn">
+                <td *ngFor="let key of ColData">
+                        <button *ngIf="!record.updating && key.field=='name'" (click)="navigateToDetails(record.id)">{{ record[key.field] }}</button>
+                        <span *ngIf="!record.updating && key.field !='name'"> {{ record[key.field] }} </span>
+                        <form *ngIf="record.updating" [formGroup]="updateForm">
+                            <label for="name" *ngIf="key.field=='name'">Enter Name
+                                <input class="form-control"  type="text" [(ngModel)]="record.name" formControlName="name">
+                            </label>
+                            <label for="email" *ngIf="key.field=='email'"> Enter Email
+                                <input class="form-control"  type="text" [(ngModel)]="record.email" formControlName="email">
+                            </label>
+                            <label for="teacher" *ngIf="key.field=='teacherName'">Select Teacher
+                                <select [ngModel]="record.teacherName" class="form-control" formControlName="teacher">
+                                    <option selected>{{record.teacherName}}</option>
+                                    <option *ngFor="let teacher of teachers">{{teacher.name}}</option>
+                                </select> 
+                            </label>
+                        </form>
+                </td>
+                <td>
+                    <div *ngIf="!record.updating">
+                        <button  class="btn btn-info" (click)="toggleUpdate(record)">Update</button>
+                        <button  class="btn btn-danger" (click)="delete(record.id)">Delete</button>
+                    </div>
+                    <div *ngIf="record.updating" id="udpateButtons">
+                        <button  class="btn btn-info" (click)="onSubmit(record.id)">Send</button>
+                        <button  class="btn btn-danger" (click)="toggleUpdate(record)">X</button>
+                    </div>
+                </td>            
+            </tr>
+        </tbody>
+    </table>
+</div>

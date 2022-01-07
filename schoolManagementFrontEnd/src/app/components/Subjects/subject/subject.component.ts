@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,12 +15,11 @@ import { SubjectService } from 'src/app/services/subject.service';
 export class SubjectComponent implements OnInit {
 
   subject!:Subject;
-  id!:string | null;
+  students!:Student[];
   studentsToEnrole!:Student[];
   enroling:boolean = false;
   enroleForm!:FormGroup;
   
-
   constructor(private service:SubjectService, 
               private studentService:StudentService,
               private route:ActivatedRoute,
@@ -28,40 +28,23 @@ export class SubjectComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.paramMap.get('id');
-    if(this.id == null) {
-      throw new Error;
+    var id = this.route.snapshot.paramMap.get('id');
+    if(id != undefined) {
+      console.log(this.service.subjects)
+      this.subject = this.service.subjects.filter(subject => (subject.id).toString() == id)[0];
     }
-    this.getSubjectById(this.id);
-
+    
     this.enroleForm = this.fb.group({
       student: ['', [Validators.required, Validators.email]],
     });
 
-    this.getStudentsToEnrole();
-
   }
 
-  getSubjectById(id:string) {
-    this.service.getSubjectById(id).subscribe({
-      next: (data) => {
-        this.subject = data;
-        this.router.navigate([`/subjects/${this.id}`])
-      },
-      error: (error) => console.log(error)
-    });
-  }
-
-  getStudentsToEnrole() {
-    this.studentService.getAllStudents().subscribe({
-      next: (data) => {
-        var allStudents:Student[];
-        allStudents = data;
-        this.studentsToEnrole = allStudents.filter(s => !this.subject.students.find(stud=> stud.id == s.id));
-                                           
-      },
-      error: (error) => console.log(error)
-    });
+  getStudents() {
+    this.studentService.getAll().subscribe({
+      next:(data)=> this.students = data,
+      error:(error)=> console.log(error)
+    })
   }
 
   toggleStudentsList() {
@@ -71,18 +54,28 @@ export class SubjectComponent implements OnInit {
 
   toggleEnroleForm() {
     this.enroling = !this.enroling;
+    this.getStudentsToEnrole();
   }
 
+  getStudentsToEnrole() {
+    this.studentsToEnrole = this.students.filter(s => !this.subject.students.includes(s));
+  }
+
+
   enroleStudent() {
-    var student = this.enroleForm.get('student')?.value;
-    this.service.enroleStudent(this.id, student.email).subscribe({
-      next:(data)=> {
-        this.getSubjectById(this.id!);
-        this.getStudentsToEnrole();
-      },
+    var email = this.enroleForm.get('student')?.value;
+    this.service.enroleStudent(this.subject.id, email).subscribe({
+      next:(data)=> {},
       error:(error)=>console.log(error)
     })  
   }
 
-  
+  removeStudent(email:string) {
+    this.service.removeStudent(this.subject.id, email).subscribe({
+      next:(data)=> {
+        this.getStudentsToEnrole();
+      },
+      error: (error)=> console.log(error)
+    }) 
+  }
 }

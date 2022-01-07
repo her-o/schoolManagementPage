@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import arg.hero.schoolManagement.model.Subject;
 import arg.hero.schoolManagement.model.Teacher;
+import arg.hero.schoolManagement.repository.SubjectRepository;
 import arg.hero.schoolManagement.repository.TeacherRepository;
 import arg.hero.schoolManagement.service.ITeacherService;
 
@@ -18,7 +20,7 @@ public class TeacherService implements ITeacherService {
 
 	@Autowired
 	private TeacherRepository repository;
-	
+
 	@Override
 	public Teacher addTeacher(Teacher teacher) {
 		return repository.save(teacher);
@@ -38,13 +40,18 @@ public class TeacherService implements ITeacherService {
 	public Teacher updateTeacherById(Long id, Teacher teacher) {
 		Teacher updatedTeacher = repository.findById(id).get();
 		updatedTeacher.setName(teacher.getName());
-		updatedTeacher.setSubjects(teacher.getSubjects());
+		updatedTeacher.setEmail(teacher.getEmail());
 		return repository.save(updatedTeacher);
 	}
 
 	@Override
 	public Teacher deleteTeacherById(Long id) {
 		Teacher deletedTeacher = repository.findById(id).get();
+		
+		for(Subject s: deletedTeacher.getSubjects()) {
+			s.setTeacher(null);
+		}
+		
 		repository.delete(deletedTeacher);
 		return deletedTeacher;
 	}

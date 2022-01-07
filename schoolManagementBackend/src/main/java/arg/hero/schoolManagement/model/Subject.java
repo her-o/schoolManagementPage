@@ -25,7 +25,6 @@ public class Subject {
 	private String name;	
 	@ManyToOne
 	private Teacher teacher;
-	private String schedule;
 	
 	@ManyToMany
 	@JoinTable(name = "enrolement", 
@@ -77,16 +76,10 @@ public class Subject {
 		students.add(student);
 	}
 	
+
 	public void removeStudent(Student student) {
 		students.remove(student);
 	}
 	
-	public String getSchedule() {
-		return this.schedule;
-	}
-	
-	public void setSchedule(String schedule) {
-		this.schedule = schedule;
-	}
 	
 }

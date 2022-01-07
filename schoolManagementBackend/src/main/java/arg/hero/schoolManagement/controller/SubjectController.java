@@ -66,5 +66,15 @@ public class SubjectController {
 		return service.addSubject(subject);
 	}
 	
+	@PutMapping("/{id}/students/remove")
+	public Subject removeStudent(@PathVariable Long id, @RequestParam String email) {
+		Subject subject = service.findSubjectById(id).get();
+		Student student = service.getStudentByEmail(email);
+		subject.removeStudent(student);
+		return service.addSubject(subject);
+	}
+	
+	
+	
 	
 }

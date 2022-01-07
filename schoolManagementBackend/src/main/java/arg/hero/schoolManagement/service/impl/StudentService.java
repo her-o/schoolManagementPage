@@ -38,7 +38,7 @@ public class StudentService implements IStudentService {
 	public Student updateStudentById(Long id, Student student) {
 		Student updatedStudent = repository.findById(id).get();
 		updatedStudent.setName(student.getName());
-		updatedStudent.setSubjects(student.getSubjects());
+		updatedStudent.setEmail(student.getEmail());
 		return repository.save(updatedStudent);
 	}
 

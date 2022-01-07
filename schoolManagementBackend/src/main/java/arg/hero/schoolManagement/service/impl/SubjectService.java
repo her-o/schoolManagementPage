@@ -49,8 +49,6 @@ public class SubjectService implements ISubjectService {
 		Subject updatedSubject = repository.findById(id).get();
 		updatedSubject.setName(subject.getName());
 		updatedSubject.setTeacher(subject.getTeacher());
-		updatedSubject.setStudents(subject.getStudents());
-		updatedSubject.setSchedule(subject.getSchedule());
 		return repository.save(updatedSubject) ;
 	}
 

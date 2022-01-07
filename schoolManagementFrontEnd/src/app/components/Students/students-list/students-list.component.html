@@ -1,0 +1,7 @@
+<div class="wrapper">
+    <div class="container">
+        <button class="btn btn-success" type="button" (click)="toggleRegisterNewStudentForm()">Register New Student</button>
+        <app-reusable-entity-table [GridData]='students' [ColData]='student' [ImportedService]='getService()' [DetailsUrl]="detailsUrl"></app-reusable-entity-table> 
+        <app-reusable-entity-register-form [ColData]='student' [ImportedService]='getService()'></app-reusable-entity-register-form>
+    </div>
+</div>

@@ -11,7 +11,12 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class StudentsListComponent implements OnInit {
 
+  detailsUrl:string = "/students"
   students!:Student[];
+  student = [
+    {field: 'name', header: 'Name'},
+    {field: 'email', header: 'Email'}
+  ]
   registerNewStudentForm!:FormGroup;
 
   constructor(private service: StudentService, 
@@ -22,16 +27,10 @@ export class StudentsListComponent implements OnInit {
 
     this.getAllStudents();
 
-    this.registerNewStudentForm = this.fb.group({
-      first_name: ['', [Validators.required, Validators.minLength(3)]],
-      last_name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]]
-    })
-
   }
 
   getAllStudents() {
-    this.service.getAllStudents().subscribe({
+    this.service.getAll().subscribe({
       next: (data) => this.students = data,
       error: (error) => console.log(error)
     });
@@ -43,20 +42,12 @@ export class StudentsListComponent implements OnInit {
   }
 
   toggleRegisterNewStudentForm() {
-    var form_container = document.getElementById("form-container")
+    var form_container = document.getElementById("entity-register-form")
     form_container?.classList.toggle("active");
   }
-
-  onSubmit() {
-    var student = new Student();
-    student.name
-     = `${this.registerNewStudentForm.get('first_name')?.value} ${this.registerNewStudentForm.get('last_name')?.value}`;
-    student.email = `${this.registerNewStudentForm.get('email')?.value}`;
-    this.service.addNewStudent(student).subscribe({
-      next:(data)=> this.getAllStudents(),
-      error:(error)=>console.log(error)
-    });
+  
+  getService() {
+    return this.service;
   }
   
-
 }
