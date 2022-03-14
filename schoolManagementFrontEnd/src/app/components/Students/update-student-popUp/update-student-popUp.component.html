@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="popUp__title">
+        <h2>Update Student</h2>
+    </div>
+    <form action="" class="form" [formGroup]="updateForm" novalidate>
+        <div class="form-floating">
+            <input class="form-control" type="text" id="firstName" formControlName="firstName" value="{{student.firstName}}"
+            [class.is-invalid]="updateForm.get('firstName')?.touched && !updateForm.get('firstName')?.valid"
+            [class.is-valid]="updateForm.get('firstName')?.touched && updateForm.get('firstName')?.valid">
+            <label for="name">First Name</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please fill this field.
+            </div>
+        </div>
+        <div class="form-floating">
+            <input class="form-control" type="text" id="lastName" formControlName="lastName" value="{{student.lastName}}"
+            [class.is-invalid]="updateForm.get('lastName')?.touched && !updateForm.get('lastName')?.valid"
+            [class.is-valid]="updateForm.get('lastName')?.touched && updateForm.get('lastName')?.valid">
+            <label for="name">Last Name</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please fill this field.
+            </div>
+        </div>
+        <div class="form-floating">
+            <input class="form-control" type="email" id="email" formControlName="email" value="{{student.email}}"
+            [class.is-invalid]="updateForm.get('email')?.touched && !updateForm.get('email')?.valid"
+            [class.is-valid]="updateForm.get('email')?.touched && updateForm.get('email')?.valid">
+            <label for="name">Email</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please choose a valid email.
+            </div>
+        </div>
+      
+        <div>
+            <button [disabled]="updateForm.invalid" class='btn btn-info' (click)="onSubmit()">Update</button>
+            <button class='btn' (click)="toggleFormOff()">Cancel</button>
+        </div>
+    </form>
+</div>

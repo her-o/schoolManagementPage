@@ -1,0 +1,14 @@
+.container {
+    width: max-content;
+    height: 23rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form {
+    height: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

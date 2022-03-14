@@ -1,0 +1,44 @@
+<div class="container">
+    <header class="description__header">
+        <h1>{{subject.name}}</h1>
+        <button class="btn" (click)="togglePopUpOff()"><i class="fa fa-close"></i></button>
+    </header>
+    <div class="descritpion__body">
+        <div class="teacher">
+            <h2>Teacher: {{subject.teacher?.firstName}} {{subject.teacher?.lastName}}</h2>
+        </div>
+        <div class="students">
+            <h2>Students</h2>
+            <table class="table studentsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <button class="btn" (click)="toggleEnrolingForm()">Enrole</button>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of subject.students">
+                        <td>{{student.firstName}} {{student.lastName}} </td>
+                        <td>{{student.email}}</td>
+                        <td><button class="btn btn-danger" (click)="removeStudent(student)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form class="enrolingForm" [formGroup]="enroleStudentForm">
+                <div class="form-floating">
+                    <select id="studentInput" class="form-select form-select-sm" formControlName="student">
+                        <option selected></option>
+                        <option *ngFor="let student of students" value="{{student.email}}">{{student.firstName}} {{student.lastName}}</option>
+                    </select> 
+                    <label for="teacherInput">Select a student</label>
+                </div>
+                <div class="btn-group">
+                    <button [disabled]="enroleStudentForm.invalid" class="btn btn-info" (click)="enroleNewStudent()">Enrole</button>
+                    <button class="btn" (click)="toggleEnrolingForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

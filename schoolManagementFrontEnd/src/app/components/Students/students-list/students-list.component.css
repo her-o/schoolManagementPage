@@ -1,16 +1,113 @@
-.wrapper {
-    display: flex;
-    flex-direction: row;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+ }
 .container {
+    width: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
-#entity-register-form {
-    display: none;
+
+header {
+    z-index: 3;
+    width: 100%;
+    background-color: rgb(123, 123, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#entity-register-form.active {
-    display: block;
+.header__title {
+    color: white;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    overflow: hidden;
+    margin-left: auto;
+
+}
+
+.btn {
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    color: white;
+    font-size: 1.5rem;
+    background-color: none;
+    outline: none;
+    border: none;
+}
+
+
+.table {    
+    margin: auto;
+    z-index: 0;
+    height: fit-content;
+    border: 1px solid rgba(0, 0, 0, 0.199);
+    border-radius: 15px;
+}
+
+.table.blurred {
+    filter: blur(2px) brightness(90%);
+}
+
+th {
+    width: max-content;
+    height: 4rem;
+    text-align: center;
+
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table__btns-group {
+    width: max-content;
+}
+
+.table__btns-group > button {
+    color: rgb(42, 42, 42);
+    border: none;
+}
+
+.table__btns-group > .description:hover {
+    color: rgba(0, 192, 226, 0.925);
+}
+
+.table__btns-group > .update:hover {
+    color: rgba(219, 216, 29, 0.925);
+}
+
+.table__btns-group > .delete:hover {
+    color: rgba(226, 26, 0, 0.925);
+}
+
+.popUp__container {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+ 
+    height: fit-content;
+    max-width: fit-content;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid black;
+
+    transition: all .3s ease-in-out;
+    opacity: 0;
+}
+
+.popUp__container.open {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
 }

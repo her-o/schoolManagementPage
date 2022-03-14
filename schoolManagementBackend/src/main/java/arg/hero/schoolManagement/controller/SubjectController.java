@@ -2,7 +2,6 @@ package arg.hero.schoolManagement.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,12 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import arg.hero.schoolManagement.model.Student;
 import arg.hero.schoolManagement.model.Subject;
-import arg.hero.schoolManagement.model.Teacher;
 import arg.hero.schoolManagement.service.impl.SubjectService;
 
 @RestController
@@ -58,23 +55,13 @@ public class SubjectController {
 		return service.findSubjectById(id).get().getStudents();
 	}
 	
-	@PutMapping("/{id}/students/enrole")
-	public Subject enroleStudent(@PathVariable Long id, @RequestParam String email) {
-		Subject subject = service.findSubjectById(id).get();
-		Student student = service.getStudentByEmail(email);
-		subject.enroleStudent(student);
-		return service.addSubject(subject);
+	@GetMapping("/{id}/studentsToEnrole")
+	public List<Student> getStudentsToEnrole(@PathVariable Long id) {
+		return service.findStudentsToEnrole(id);
 	}
 	
-	@PutMapping("/{id}/students/remove")
-	public Subject removeStudent(@PathVariable Long id, @RequestParam String email) {
-		Subject subject = service.findSubjectById(id).get();
-		Student student = service.getStudentByEmail(email);
-		subject.removeStudent(student);
-		return service.addSubject(subject);
+	@PutMapping("/{id}/enrole")
+	public Subject enroleStudent(@PathVariable Long id, @RequestBody String studentEmail) {
+		return this.service.enroleStudent(id, studentEmail);
 	}
-	
-	
-	
-	
 }

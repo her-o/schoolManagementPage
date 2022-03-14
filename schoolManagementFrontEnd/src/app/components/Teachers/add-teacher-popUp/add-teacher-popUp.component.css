@@ -1,0 +1,26 @@
+.container {
+    width: max-content;
+    height: 23rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popUp__title {
+    text-align: center;
+}
+
+.popUp__title h1 {
+    height: 100%;
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.form {
+    height: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

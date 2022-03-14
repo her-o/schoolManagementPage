@@ -5,36 +5,18 @@ import { Observable } from 'rxjs';
 import { Subject } from '../model/subject';
 import { AbstractService } from './abstract.service';
 import { Teacher } from '../model/teacher';
-import { TeacherService } from './teacher.service';
-import { Infodto } from '../model/infodto';
-import { Router } from '@angular/router';
+import { Student } from '../model/student';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService implements AbstractService {
-  
+
   apiUrl:string;
-  listUrl:string = '/subjects';
   subjects!:Subject[];
 
   constructor(private http:HttpClient) { 
     this.apiUrl = environment.apiUrl;
-   
-  }
-
-  loadEntities() {
-    this.getAll().subscribe({
-      next:(data)=> this.subjects = data,
-      error:(error)=> console.log(error)
-    })
-  }
-
-  manageInfo(info: Infodto): void {
-    const subject = new Subject();
-    subject.name = info.name;
-    subject.teacher = info.teacher;
-    info.id ? this.update(info.id, subject) : this.add(subject);
   }
 
   add(subject:Subject) {
@@ -45,23 +27,30 @@ export class SubjectService implements AbstractService {
   }
 
   update(id:number, subject:Subject) {
-    for(let s of this.subjects) {
-      if(s.id == id) {
-        s.teacherName = subject.teacher.name;
-        s.updating = false;
-      }
-    }
     this.updateById(id, subject).subscribe({
       next:(data)=> {},
       error:(error)=> console.log(error)
     });
   }
 
-  delete(id:number) {
-    this.deleteById(id).subscribe({
+  delete(subject:Subject) {
+    this.deleteById(subject.id).subscribe({
       next:(data)=>{},
       error:(error)=>console.log(error)
     })
+  }
+
+  enrole(subject:Subject, student:Student) {
+    subject.students.push(student);
+    this.enroleStudent(subject.id, student.email).subscribe({
+      next:(data)=>{},
+      error:(error)=>console.log(error)
+    })
+  }
+
+  removeStudent(subject:Subject, student:Student) {
+    subject.students.splice(subject.students.indexOf(student), 1);
+    this.update(subject.id, subject);  
   }
 
   getAll():Observable<any> {
@@ -84,11 +73,12 @@ export class SubjectService implements AbstractService {
     return this.http.delete<any>(`${this.apiUrl}/subjects/${id}`);
   }
 
-  enroleStudent(subjectId:number, studentEmail:string):Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/subjects/${subjectId}/students/enrole?email=${studentEmail}`, null);
+  findStudentsToEnrole(id:number):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/subjects/${id}/studentsToEnrole`)
   }
 
-  removeStudent(subjectId:number, studentEmail:string):Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/subjects/${subjectId}/students/remove?email=${studentEmail}`, null);
+  enroleStudent(id:number, studentEmail:string):Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/subjects/${id}/enrole`, studentEmail);
   }
+  
 }

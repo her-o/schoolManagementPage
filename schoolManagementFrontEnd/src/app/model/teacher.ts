@@ -3,7 +3,8 @@ import { Subject } from "./subject";
 export class Teacher {
 
     id!:number;
-    name!:string;
+    firstName!:string;
+    lastName!:string;
     email!:string;
     subjects!:Subject[];
     

@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CascadeType;
+
 
 @Entity
 public class Subject {
@@ -71,15 +73,5 @@ public class Subject {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
-	
-	public void enroleStudent(Student student) {
-		students.add(student);
-	}
-	
-
-	public void removeStudent(Student student) {
-		students.remove(student);
-	}
-	
 	
 }

@@ -49,6 +49,7 @@ public class SubjectService implements ISubjectService {
 		Subject updatedSubject = repository.findById(id).get();
 		updatedSubject.setName(subject.getName());
 		updatedSubject.setTeacher(subject.getTeacher());
+		updatedSubject.setStudents(subject.getStudents());
 		return repository.save(updatedSubject) ;
 	}
 
@@ -65,5 +66,22 @@ public class SubjectService implements ISubjectService {
 	
 	public Teacher getTeacherById(Long id) {
 		return teacherRepository.findById(id).get();
+	}
+
+	public Subject enroleStudent(Long id, String studentEmail) {
+		Subject subjectToUpdate = repository.getById(id);
+		Student studentToUpdate = studentRepository.findByEmail(studentEmail).get();
+		studentToUpdate.getSubjects().add(subjectToUpdate);
+		subjectToUpdate.getStudents().add(studentToUpdate);
+		return repository.save(subjectToUpdate);
+	}
+
+	public List<Student> findStudentsToEnrole(Long id) {
+		Subject subject = repository.findById(id).get();
+		List<Student> studentsToEnrole = studentRepository.findAll()
+												  .stream()
+												  .filter(student -> !subject.getStudents().contains(student))
+												  .toList();
+		return studentsToEnrole;
 	}
 }

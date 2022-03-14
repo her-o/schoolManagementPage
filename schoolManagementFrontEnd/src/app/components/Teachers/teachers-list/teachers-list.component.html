@@ -1,8 +1,44 @@
-<div class="wrapper">
-    <div class="container">
-        <button class="btn btn-success" type="button" (click)="toggleHireNewTeacherForm()">Hire New Teacher</button>
-        <app-reusable-entity-table [GridData]='teachers' [ColData]='teacher' [ImportedService]='getService()' [DetailsUrl]="detailsUrl"></app-reusable-entity-table>  
-        <app-reusable-entity-register-form [ColData]='teacher' [ImportedService]='getService()'></app-reusable-entity-register-form>
+<div class="container">
+    <div class="row">
+        <header>
+            <h1 class="header__title">Teachers</h1>
+                <button class="btn header-btn btn-add" (click)="togglePopUp('add')">&#43;</button>
+        </header>   
+    </div>
+    <div class="row">
+        <div class="popUp__container addTeacher">
+            <app-add-teacher-popUp [teachersList]="teachers"></app-add-teacher-popUp>
+        </div>
+        <div class="popUp__container descriptionTeacher">
+            <app-description-teacher-popUp [teacher]="teacher"></app-description-teacher-popUp>
+        </div> 
+        <div class="popUp__container updateTeacher">
+            <app-update-teacher-popUp [teacher]="teacher" [teachersList]="teachers"></app-update-teacher-popUp>
+        </div> 
+        <div class="popUp__container deleteTeacher">
+            <app-delete-teacher-popUp [teacher]="teacher" [teachersList]="teachers"></app-delete-teacher-popUp>
+        </div>
+        <table class="table table-sm table-fixed">
+            <thead>
+                <tr>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let teacher of teachers">
+                    <td>{{teacher.lastName}}</td>
+                    <td>{{teacher.firstName}}</td>
+                    <td>{{teacher.email}}</td>
+                    <td class="table__btns-group">
+                        <button class="btn description" (click)="toggleDescriptionPopUp(teacher)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <button class="btn update" (click)="toggleUpdatePopUp(teacher)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button class="btn delete" (click)="toggleDeletePopUp(teacher)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-

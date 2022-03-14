@@ -1,0 +1,18 @@
+<div class="container">  
+    <button class="btn" (click)="togglePopUpOff()"><i class="fa fa-close"></i></button>
+    <div class="row">
+        <div class="description__container">
+            <header class="description__header">
+                <h1>{{student.firstName}} {{student.lastName}}</h1> 
+            </header>
+        </div>
+        <hr>
+            <div class="descritpion__body">
+                <div class="contact">
+                    <h2>Contact:</h2>
+                    <h3>{{student.email}}</h3>
+                    <h3>{{student.phoneNumber}}</h3>
+                </div>
+            </div>
+        </div>
+</div>

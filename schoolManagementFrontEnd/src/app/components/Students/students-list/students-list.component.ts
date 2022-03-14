@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { NONE_TYPE } from '@angular/compiler';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Student } from 'src/app/model/student';
@@ -7,47 +8,57 @@ import { StudentService } from 'src/app/services/student.service';
 @Component({
   selector: 'app-students-list',
   templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.css']
+  styleUrls: ['./students-list.component.css'],
 })
 export class StudentsListComponent implements OnInit {
 
-  detailsUrl:string = "/students"
-  students!:Student[];
-  student = [
-    {field: 'name', header: 'Name'},
-    {field: 'email', header: 'Email'}
-  ]
-  registerNewStudentForm!:FormGroup;
+  students: Student[] = [];
+  student = new Student();
 
-  constructor(private service: StudentService, 
-              private fb:FormBuilder,
-              private router:Router) { }
+  constructor(private service:StudentService) { }
 
   ngOnInit(): void {
-
     this.getAllStudents();
-
   }
 
   getAllStudents() {
-    this.service.getAll().subscribe({
-      next: (data) => this.students = data,
-      error: (error) => console.log(error)
-    });
-    this.router.navigate(['/students']);
-  }
+      this.service.getAll().subscribe({
+        next:(data)=> {
+          this.students = data
+          this.students.sort((a, b)=> a.lastName.localeCompare(b.lastName));
+        },
+        error:(error)=> console.log(error)
+      })
 
-  navigateToDetails(id:number) {
-    this.router.navigate([`/students/${id}`])
-  }
-
-  toggleRegisterNewStudentForm() {
-    var form_container = document.getElementById("entity-register-form")
-    form_container?.classList.toggle("active");
   }
   
-  getService() {
-    return this.service;
+  togglePopUp(popUpType:string) {
+
+    const table = document.querySelector('.table');
+    table?.classList.toggle('blurred');
+
+    const popUps:any = {
+      'add': document.querySelector('.addStudent'),
+      'description': document.querySelector('.descriptionStudent'),
+      'update': document.querySelector('.updateStudent'),
+      'delete': document.querySelector('.deleteStudent')
+    }
+    var form = popUps[popUpType];
+    form.classList.toggle('open');
   }
-  
+
+  toggleDescriptionPopUp(student:Student) {
+    this.student = student;
+    this.togglePopUp('description');
+  }
+
+  toggleUpdatePopUp(student:Student) {
+    this.student = student;
+    this.togglePopUp('update');
+  }
+
+  toggleDeletePopUp(student:Student) {
+    this.student = student;
+    this.togglePopUp('delete');
+  }
 }

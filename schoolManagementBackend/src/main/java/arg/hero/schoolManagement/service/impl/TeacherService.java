@@ -1,6 +1,7 @@
 package arg.hero.schoolManagement.service.impl;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import arg.hero.schoolManagement.model.Subject;
 import arg.hero.schoolManagement.model.Teacher;
-import arg.hero.schoolManagement.repository.SubjectRepository;
 import arg.hero.schoolManagement.repository.TeacherRepository;
 import arg.hero.schoolManagement.service.ITeacherService;
 
@@ -39,7 +39,8 @@ public class TeacherService implements ITeacherService {
 	@Override
 	public Teacher updateTeacherById(Long id, Teacher teacher) {
 		Teacher updatedTeacher = repository.findById(id).get();
-		updatedTeacher.setName(teacher.getName());
+		updatedTeacher.setFirstName(teacher.getFirstName());
+		updatedTeacher.setLastName(teacher.getLastName());
 		updatedTeacher.setEmail(teacher.getEmail());
 		return repository.save(updatedTeacher);
 	}

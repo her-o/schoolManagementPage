@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Infodto } from '../model/infodto';
 import { Teacher } from '../model/teacher';
 import { AbstractService } from './abstract.service';
+import { SubjectService } from './subject.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,26 +12,14 @@ import { AbstractService } from './abstract.service';
 export class TeacherService implements AbstractService {
 
   apiUrl:String;
-  listUrl:string = '/teachers';
   teachers!:Teacher[];
 
-  constructor(private http:HttpClient) { 
+
+  constructor(private http:HttpClient,
+              private subjectService:SubjectService) { 
     this.apiUrl = environment.apiUrl;
   }
 
-  loadEntities() {
-    this.getAll().subscribe({
-      next:(data)=> this.teachers = data,
-      error:(error)=> console.log(error)
-    })
-  }
-
-  manageInfo(info: Infodto): void {
-    const teacher = new Teacher();
-    teacher.name = info.name;
-    teacher.email = info.email;
-    info.id ? this.update(info.id, teacher) : this.add(teacher);
-  }
 
   add(teacher:Teacher) {
     this.addTeacher(teacher).subscribe({
@@ -41,14 +29,15 @@ export class TeacherService implements AbstractService {
   }
 
   update(id:number, teacher:Teacher) {
+
     this.updateById(id, teacher).subscribe({
       next:(data)=> {},
       error:(error)=> console.log(error)
     });
   }
 
-  delete(id:number) {
-    this.deleteById(id).subscribe({
+  delete(teacher:Teacher) {
+    this.deleteById(teacher.id).subscribe({
       next:(data)=>{},
       error:(error)=>console.log(error)
     })

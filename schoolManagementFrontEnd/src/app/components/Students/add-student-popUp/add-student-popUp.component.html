@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="popUp__title">
+        <h2>Add Student</h2>
+    </div>
+    <form action="" class="form" [formGroup]="registerForm" novalidate>
+        <div class="form-floating" >
+            <input class="form-control" type="text" id="firstName" formControlName="firstName" placeholder="Enter your first name"
+            [class.is-invalid]="registerForm.get('firstName')?.touched && !registerForm.get('firstName')?.valid"
+            [class.is-valid]="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.valid">
+            <label for="name">First Name</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please fill this field.
+            </div>
+        </div>
+        <div class="form-floating" >
+            <input class="form-control" type="text" id="name" formControlName="lastName" placeholder="Enter your last name"
+            [class.is-invalid]="registerForm.get('lastName')?.touched && !registerForm.get('lastName')?.valid"
+            [class.is-valid]="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.valid">
+            <label for="name">Last Name</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please fill this field.
+            </div>
+        </div>
+        <div class="form-floating" >
+            <input class="form-control" type="email" id="input" formControlName="email" placeholder="Enter your email"
+            [class.is-invalid]="registerForm.get('email')?.touched && !registerForm.get('email')?.valid"
+            [class.is-valid]="registerForm.get('email')?.touched && registerForm.get('email')?.valid">
+            <label for="name">Email</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please enter a valid email.
+            </div>
+        </div>
+        <div>
+            <button [disabled]="registerForm.invalid"  class='btn btn-info' (click)="onSubmit()">Add</button>
+            <button class='btn' (click)="toggleFormOff()">Cancel</button>
+        </div>
+    </form>
+</div>

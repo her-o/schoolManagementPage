@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="popUp__title">
+        <h2>Add Subject</h2>
+    </div>
+    <form action="" class="form" [formGroup]="registerForm" novalidate>
+        <div class="form-floating" >
+            <input class="form-control" type="text" id="name" formControlName="name" placeholder="Enter your name"
+            [class.is-invalid]="registerForm.get('name')?.touched && !registerForm.get('name')?.valid"
+            [class.is-valid]="registerForm.get('name')?.touched && registerForm.get('name')?.valid">
+            <label for="name">Enter subject's name</label>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please choose a name.
+            </div>
+        </div>
+        <div class="form-floating">
+            <select id="teacherInput" class="form-select form-select-sm" formControlName="teacher">
+                <option selected></option>
+                <option *ngFor="let teacher of teachers" value="{{teacher.email}}">{{teacher.firstName}} {{teacher.lastName}}</option>
+            </select> 
+            <label for="teacherInput">Select Teacher</label>
+        </div>
+        <div>
+            <button [disabled]="registerForm.invalid"  class='btn btn-info' (click)="onSubmit()">Add</button>
+            <button class='btn' (click)="toggleFormOff()">Cancel</button>
+        </div>
+    </form>
+</div>
+

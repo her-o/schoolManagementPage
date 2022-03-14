@@ -37,7 +37,8 @@ public class StudentService implements IStudentService {
 	@Override
 	public Student updateStudentById(Long id, Student student) {
 		Student updatedStudent = repository.findById(id).get();
-		updatedStudent.setName(student.getName());
+		updatedStudent.setFirstName(student.getFirstName());
+		updatedStudent.setLastName(student.getLastName());
 		updatedStudent.setEmail(student.getEmail());
 		return repository.save(updatedStudent);
 	}

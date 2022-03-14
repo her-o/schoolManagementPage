@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Student } from 'src/app/model/student';
 import { Subject } from 'src/app/model/subject';
-import { Teacher } from 'src/app/model/teacher';
+import { StudentService } from 'src/app/services/student.service';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 
@@ -14,71 +15,65 @@ export class SubjectsListComponent implements OnInit {
   
   detailsUrl:string = "/subjects"
   subjects: Subject[] = [];
-  subject = [
-    {field: 'name', header: 'Name'},
-    {field: 'teacherName', header: 'Teacher'},
-  ]
-  teachers!:Teacher[];
+  students!: Student[];
+  subject = new Subject();
 
   constructor(private service:SubjectService, 
-              private teacherService:TeacherService,
+              private studentService:StudentService,
               private router:Router) { }
 
   ngOnInit(): void {
 
     this.getAllSubjects();
-    this.getAllTeachers();
 
   }
 
   getAllSubjects() {
-
-    if(this.service.subjects == undefined) {
       this.service.getAll().subscribe({
-        next:(data)=>{
-          this.service.subjects = data;
-          this.subjects = this.service.subjects;
-          for(let subject of this.subjects) {
-            if(subject.teacher != null) {
-              subject.teacherName = subject.teacher.name;
-           }
-          }
-        },
+        next:(data)=> this.subjects = data,
         error:(error)=> console.log(error)
       })
-    }
-    this.router.navigate(['/subjects']);
   }
 
-  getAllTeachers() {
+  togglePopUp(popUpType:string) {
 
-    if(this.teacherService.teachers == undefined) {
-      this.teacherService.getAll().subscribe({
-        next:(data)=>{
-          this.teacherService.teachers = data;
-          this.teachers = this.teacherService.teachers;
-        },
-        error:(error)=> console.log(error)
-      })
+    const table = document.querySelector('.table');
+    table?.classList.toggle('blurred');
+
+    const popUps:any = {
+      'add': document.querySelector('.addSubject'),
+      'description': document.querySelector('.descriptionSubject'),
+      'delete': document.querySelector('.deleteSubject'),
+      'update': document.querySelector('.updateSubject')
+   
     }
+    var form = popUps[popUpType];
+    form.classList.toggle('open');
   }
 
-  navigateToDetails(id:number) {
-    this.router.navigate([`/subjects/${id}`]);
+  toggleDescriptionPopUp(subject:Subject) {
+    this.subject = subject;
+    this.service.findStudentsToEnrole(subject.id).subscribe({
+      next:(data)=> this.students = data,
+      error:(error)=> console.log(error)
+    });
+   
+    console.log(this.students);
+    this.togglePopUp('description');
+  }
+
+  toggleUpdatePopUp(subject:Subject) {
+    this.subject = subject;
+    this.togglePopUp('update');
   }
   
-
-  toggleAddSubjectForm() {  
-    const form = document.getElementById("entity-register-form");
-    form?.classList.toggle("active");
+  toggleDeletePopUp(subject:Subject) {
+    this.subject = subject;
+    this.togglePopUp('delete');
   }
 
-  findTeacherByName(name:string):Teacher {
-    return this.teacherService.teachers.filter(teacher => teacher.name == name)[0];
-  }
+  
 
-  getService() {
-    return this.service;
-  }
+
 
 }

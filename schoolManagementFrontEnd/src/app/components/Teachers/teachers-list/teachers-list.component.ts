@@ -11,52 +11,52 @@ import { TeacherService } from 'src/app/services/teacher.service';
 })
 export class TeachersListComponent implements OnInit {
 
-  detailsUrl:string = "/teachers"
+  teacher:Teacher = new Teacher();
   teachers!:Teacher[];
-  teacher = [
-    {field: 'name', header: 'Name'},
-    {field: 'email', header: 'Email'}
-  ]
-  hireNewTeacherForm!:FormGroup;
-  addingTeacher:boolean = false;
-
-  constructor(private service: TeacherService,
-              private router:Router) { }
+  
+  constructor(private service: TeacherService) { }
 
   ngOnInit(): void {
 
-    if(this.service.teachers == undefined) {
-      this.service.getAll().subscribe({
-        next:(data)=>{
-          this.service.teachers = data;
-          this.teachers = this.service.teachers;
-        },
-        error:(error)=> console.log(error)
-      })
-    }
+    this.getAllTeachers();
+    
   }
 
   getAllTeachers() {
-  
-      if(this.service.teachers == undefined) {
-        this.service.getAll().subscribe({
-          next:(data)=>{
-            this.service.teachers = data;
-            this.teachers = this.service.teachers;
-          },
-          error:(error)=> console.log(error)
-        })
-      }
-      this.router.navigate(['/teachers']);
+    this.service.getAll().subscribe({
+      next:(data)=> this.teachers = data,
+      error:(error)=> console.log(error)
+    })
   }
-  getService() {
-    return this.service;
+  
+  togglePopUp(popUpType:string) {
+
+    const table = document.querySelector('.table');
+    table?.classList.toggle('blurred');
+
+    const popUps:any = {
+      'add': document.querySelector('.addTeacher'),
+      'description': document.querySelector('.descriptionTeacher'),
+      'update': document.querySelector('.updateTeacher'),
+      'delete': document.querySelector('.deleteTeacher')
+    }
+    var form = popUps[popUpType];
+    form.classList.toggle('open');
   }
 
-  toggleHireNewTeacherForm() {
-    var form_container = document.getElementById("entity-register-form");
-    form_container?.classList.toggle("active");
-    this.addingTeacher = !this.addingTeacher;
+  toggleDeletePopUp(teacher:Teacher) {
+    this.teacher = teacher;
+    this.togglePopUp('delete');
+  }
+
+  toggleUpdatePopUp(teacher:Teacher) {
+    this.teacher = teacher;
+    this.togglePopUp('update');
+  }
+
+  toggleDescriptionPopUp(teacher:Teacher) {
+    this.teacher = teacher;
+    this.togglePopUp('description')
   }
 
 }

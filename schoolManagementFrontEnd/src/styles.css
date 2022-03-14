@@ -1,1 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Roboto:wght@300&display=swap');
+
+
+:root {
+    --color-primary: rgb(123, 123, 255);
+    --color-accent: #C2FF99;
+    --color-dark: #000F08;
+    --color-light: white;
+    --ff-montserrat: 'Montserrat', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body {
+ 
+    padding: 1rem;
+}
+
+.container-fluid {
+    max-width: 90vw;
+    height: fit-content;
+    margin-top: 1rem;
+
+}
+
+ul.nav-tabs {
+    width: fit-content;
+    height: 2rem;
+
+    border: none;
+    
+}
+
+ul.nav-tabs li a.nav-link {
+    font-family: var(--ff-montserrat);
+    color: black;
+    transition: 0s;
+  }
+
+ ul.nav-tabs li a.nav-link.active {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: white;
+    transition: 0s;
+}
