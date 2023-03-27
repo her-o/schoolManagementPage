@@ -10,6 +10,6 @@ jobs:
         with:
           mode: exactly
           count: 1
-          labels: "bug"
+          labels: "approved message"
           add_comment: true
           message: "This PR is being prevented from merging because your PR message has not been approved by an instructor yet."
