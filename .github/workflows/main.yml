@@ -1,4 +1,4 @@
-name: Pull Request Labels
+name: Approved PR message
 on:
   pull_request:
     types: [opened, labeled, unlabeled, synchronize]
@@ -11,3 +11,5 @@ jobs:
           mode: exactly
           count: 1
           labels: "bug"
+          add_comment: true
+          message: "This PR is being prevented from merging because your PR message has not been approved by an instructor yet."
